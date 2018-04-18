@@ -9,9 +9,6 @@
     <div class="step-content">
         <div data-step="1" class="step-pane active">
                             {!! Form::open(['action' => 'Register@store', 'method' => 'POST', 'data-parsley-namespace'=>'data-parsley-', 'data-parsley-validate'=>'','novalidate'=>'','class'=>'form-horizontal group-border-dashed' ]) !!}
-               <!-- <div class="form-group no-padding"> Add User
-                     </div>-->
-                            
 
                         <div class="form-group">
 
@@ -54,19 +51,28 @@
                         </div>
 
                         
-                        <div class="form-group">  
-                                     <!-- user_level -->
+                        <div class="form-group"> 
+                         @if(Auth::user()->user_level=='Administrator')
+                                        <!-- user_level -->
                                         <div class="col-sm-4">
                                              {{Form::select('user_level', ['Administrator' => 'Administrator', 'Supervisor' => 'Supervisor', 'Agent' => 'Agent'], null, ['placeholder' => 'User_Level', 'class'=>'select2', 'required'=>''])}}
                                         </div>
                                         <!-- user group -->
                                         <div class="col-sm-4">
-                                            {{Form::select('user_group', ['3' => 'Administrator', '2' => 'Supervisor', '1' => 'Agent'], null, ['placeholder' => 'User_Group', 'class'=>'select2', 'required'=>''])}}
+                                            {{Form::select('user_group', ['1' => 'Administrator', '2' => 'Web Developer', '3' => 'Operation', '4' => 'Affiliates'], null, ['placeholder' => 'User_Group', 'class'=>'select2', 'required'=>''])}}
                                         </div>
                                         <!-- Center -->
                                         <div class="col-sm-4">
-                                            {{Form::select('center', ['1' => 'SageOne', '2' => 'Center 1', '2' => 'Center 2'], null, ['placeholder' => 'Centers', 'class'=>'select2', 'required'=>''])}}
+                                            {{Form::select('center', ['2' => 'SageOne', '3' => 'iServe'], null, ['placeholder' => 'Centers', 'class'=>'select2', 'required'=>''])}}
                                         </div>
+                            @elseif(Auth::user()->user_level=='Supervisor')
+
+                                        <!-- user_level -->
+                                            {{Form::hidden('user_level', 'Agent',['class'=>'form-control'])}}
+                                        
+                                        <!-- user group -->
+                                            {{Form::hidden('user_group', '3',['class'=>'form-control'])}}
+                            @endif            
                         </div>
 
                                   <!--Submit -->
